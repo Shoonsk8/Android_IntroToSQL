@@ -1,0 +1,156 @@
+**Schema (SQLite v3.26)**
+
+    CREATE TABLE Teams(
+      idTeam int PRIMARY KEY,
+      Name Text,
+      location Text
+    );
+    
+    CREATE TABLE Players (
+      firstName Text,
+      lastName  Text,
+      AGE  int,
+      idPerson int PRIMARY KEY,
+      idTeam int,
+      FOREIGN KEY(idTeam)  REFERENCES Teams  (idTeam)
+    );
+     
+     
+
+---
+
+**Query #1**
+
+    INSERT
+     INTO Players (firstName,lastName,AGE,idPerson,idTeam) 
+     VALUES 
+     ("a","b",1,1,1);
+
+There are no results to be displayed.
+
+---
+**Query #2**
+
+    INSERT
+     INTO Players (firstName,lastName,AGE,idPerson,idTeam) 
+     VALUES 
+     ("a","b",1,2,1);
+
+There are no results to be displayed.
+
+---
+**Query #3**
+
+    INSERT
+     INTO Players (firstName,lastName,AGE,idPerson,idTeam) 
+     VALUES 
+     ("a","b",10,3,2);
+
+There are no results to be displayed.
+
+---
+**Query #4**
+
+    INSERT 
+     INTO Teams
+     (idTeam,Name,location)
+     VALUES
+     (1, "Indians","Indianapolis");
+
+There are no results to be displayed.
+
+---
+**Query #5**
+
+    INSERT 
+     INTO Teams
+     (idTeam,Name,location)
+     VALUES
+     (2, "Colts","Indianapolis");
+
+There are no results to be displayed.
+
+---
+**Query #6**
+
+    SELECT * FROM Players;
+
+| firstName | lastName | AGE | idPerson | idTeam |
+| --------- | -------- | --- | -------- | ------ |
+| a         | b        | 1   | 1        | 1      |
+| a         | b        | 1   | 2        | 1      |
+| a         | b        | 10  | 3        | 2      |
+
+---
+**Query #7**
+
+    SELECT * FROM Teams;
+
+| idTeam | Name    | location     |
+| ------ | ------- | ------------ |
+| 1      | Indians | Indianapolis |
+| 2      | Colts   | Indianapolis |
+
+---
+**Query #8**
+
+    SELECT * FROM Players where idTeam=1;
+
+| firstName | lastName | AGE | idPerson | idTeam |
+| --------- | -------- | --- | -------- | ------ |
+| a         | b        | 1   | 1        | 1      |
+| a         | b        | 1   | 2        | 1      |
+
+---
+**Query #9**
+
+    UPDATE Players
+    SET firstName ="Ken"
+    WHERE idPerson=2;
+
+There are no results to be displayed.
+
+---
+**Query #10**
+
+    SELECT * FROM Players;
+
+| firstName | lastName | AGE | idPerson | idTeam |
+| --------- | -------- | --- | -------- | ------ |
+| a         | b        | 1   | 1        | 1      |
+| Ken       | b        | 1   | 2        | 1      |
+| a         | b        | 10  | 3        | 2      |
+
+---
+**Query #11**
+
+    DELETE FROM Players
+    WHERE idPerson=3;
+
+There are no results to be displayed.
+
+---
+**Query #12**
+
+    SELECT * FROM Players;
+
+| firstName | lastName | AGE | idPerson | idTeam |
+| --------- | -------- | --- | -------- | ------ |
+| a         | b        | 1   | 1        | 1      |
+| Ken       | b        | 1   | 2        | 1      |
+
+---
+**Query #13**
+
+    SELECT Teams.idTeam as idTeam, Teams.name as TeamName, Players.idPerson, Players.firstName
+     FROM Teams
+     JOIN Players ON Teams.idTeam=Players.idPerson;
+
+| idTeam | TeamName | idPerson | firstName |
+| ------ | -------- | -------- | --------- |
+| 1      | Indians  | 1        | a         |
+| 2      | Colts    | 2        | Ken       |
+
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/)

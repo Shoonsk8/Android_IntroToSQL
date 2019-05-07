@@ -1,0 +1,14 @@
+CREATE TABLE Teams(
+  idTeam int PRIMARY KEY,
+  Name Text,
+  location Text
+);
+
+CREATE TABLE Players (
+  firstName Text,
+  lastName  Text,
+  AGE  int,
+  idPerson int PRIMARY KEY,
+  idTeam int,
+  FOREIGN KEY(idTeam)  REFERENCES Teams  (idTeam)
+);
